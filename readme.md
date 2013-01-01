@@ -1,10 +1,12 @@
 Racket (formerly named PLT Scheme) Language snippets
 ======
 
-Programa para interpretar estes códigos ou compilar para linguagem de máquina
+Alguns snippets em Racket, entre outras coisas.
+
+Interpretador e compilador
 ------
 
-Veja http://racket-lang.org/
+Veja http://racket-lang.org/download/
 
 Documentação oficial
 ------

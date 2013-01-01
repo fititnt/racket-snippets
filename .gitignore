@@ -3,6 +3,9 @@
 /include/
 /lib/
 
+# pasta temporaria
+temp/
+
 # Windows and OSX executables
 /*.app
 /*.exe
