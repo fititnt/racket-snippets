@@ -1,0 +1,1 @@
+"Contrato" significa a documentação da função que é usada.

@@ -1,4 +1,4 @@
-#lang racket
+#lang racket/base
 ;; Arquivo contendo visão geral sobre listas em scheme (Racket)
 
 ;; Lista tipica: 0, 1, 2, 3

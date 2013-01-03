@@ -1,4 +1,4 @@
-#lang racket
+#lang racket/base
 ;; Arquivo contendo visão geral sobre constantes e variáveis em scheme (Racket)
 
 

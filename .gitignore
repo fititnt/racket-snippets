@@ -7,13 +7,13 @@
 temp/
 
 # Windows and OSX executables
-/*.app
-/*.exe
+*.app
+*.exe
 
 # Windows linking and debugging
-/*.pdb
-/*.ilk
-/*.suo
+*.pdb
+*.ilk
+*.suo
 /GRacket.exe.manifest
 /Racket.exe.manifest
 

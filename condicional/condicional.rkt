@@ -1,4 +1,4 @@
-#lang racket
+#lang racket/base
 ;; Arquivo contendo visão geral sobre condicionais em scheme (Racket)
 
 (define var-verdadeira true)

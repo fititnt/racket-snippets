@@ -1,4 +1,4 @@
-#lang racket
+#lang racket/base
 ;; Arquivo contendo visão geral sobre estruturas em scheme (Racket)
 
 

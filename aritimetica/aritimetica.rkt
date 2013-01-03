@@ -1,4 +1,4 @@
-#lang racket
+#lang racket/base
 ;; Arquivo contendo visão geral sobre aritimetica em scheme (Racket)
 
 ;; Logica geral: colocar expressão entre parenteses, primeiro o operador, depois as variavies
