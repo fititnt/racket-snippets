@@ -1,0 +1,1 @@
+wordlist.txt de http://www.funpar.ufpr.br:8080/RUP/rpw_gen/applets/search/word.htm
