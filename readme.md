@@ -1,4 +1,4 @@
-Racket (formerly named PLT Scheme) Language snippets
+Dr Racket (formerly named PLT Scheme) Language snippets
 ======
 
 Alguns snippets em Racket, entre outras coisas.
