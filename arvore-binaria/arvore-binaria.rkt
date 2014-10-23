@@ -40,7 +40,16 @@
 ;; lista-anos: Pessoa -> ListaDeNumeros
 ;; Função que consome um nó de uma árvore de ascendentes e produz uma lista de 
 ;; todas os anos de nascimento dos nós
-(define (lista-anos pessoa) "@todo")
+(define (lista-anos uma-pessoa) 
+  (cond
+    [(empty? uma-pessoa) empty]
+    [else (append (cons (pessoa-nascimento uma-pessoa) empty)
+                  (lista-anos (pessoa-mãe uma-pessoa))
+                  (lista-anos (pessoa-pai uma-pessoa)))]))
+;; Testes
+(check-expect (lista-anos Chaos) (list 1113))
+(check-expect (lista-anos Hermes) (list 1983 1950 1930 1899 1899))
+
 
 ;; conta-pessoas: Pessoa -> Número
 ; Função recebe um nó de uma árvore de ascendentes e devolve o número de
@@ -66,3 +75,5 @@
 ;; Testes
 (check-expect (conta-pessoas Chaos) 0)
 (check-expect (conta-pessoas Hermes) 4)
+
+;; idade-média,
