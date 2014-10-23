@@ -7,11 +7,12 @@
 ;; Definições e constantes antes dos metodos
 
 ;; O tipo ListaDeNumeros é uma lista aonde todos os valores são números
+;; O tipo ListaDeStrings é uma lista aonde todos os valores são strings
 
-(define-struct pessoa (nome nascimento mãe pai))
+(define-struct pessoa (id nascimento mãe pai))
 ;; Um elemento pessoa de Pessoa é uma estrutura
-;; (make-pessoa um-nome um-nascimento uma-mãe um-pai) onde
-;; um-nome: String, nome da pessoa
+;; (make-pessoa um-id um-nascimento uma-mãe um-pai) onde
+;; um-id: String, identificador, tipicamente o nome da pessoa
 ;; um-nascimento: Número, ano de nascimento
 ;; uma-mãe: Pessoa, uma pessoa que representa a mãe
 ;; um-pai: Pessoa, uma pessoa que representa o pai
@@ -48,7 +49,7 @@
                   (lista-anos (pessoa-pai uma-pessoa)))]))
 ;; Testes
 (check-expect (lista-anos Chaos) (list 1113))
-(check-expect (lista-anos Hermes) (list 1983 1950 1930 1899 1899))
+(check-expect (lista-anos Hermes) (list 1986 1950 1930 1899 1899))
 
 
 ;; conta-pessoas: Pessoa -> Número
@@ -68,7 +69,7 @@
 (define (conta-pessoas-auxiliar pessoa)
   (cond
     [(empty? pessoa) 0]
-    [else (+ 1 
+    [else (+ 1
              (conta-pessoas-auxiliar (pessoa-mãe pessoa))
              (conta-pessoas-auxiliar (pessoa-pai pessoa))
              )]))
@@ -76,4 +77,31 @@
 (check-expect (conta-pessoas Chaos) 0)
 (check-expect (conta-pessoas Hermes) 4)
 
-;; idade-média,
+;; idade-media: Pessoa Numero -> Numero
+;; Dada uma pessoa e um ano, calcula a idade média dele e de seus genitores
+;; na respectiva data
+(define (idade-media uma-pessoa um-ano) "@todo terminar")
+
+;; valor-na-AB Pessoa String -> Booleano
+;; Para uma Pessoa, procura se um nome é dela mesmo ou de seus genitores
+(define (valor-na-AB uma-pessoa um-ano)
+  (and
+   (not (empty? uma-pessoa))
+   (or
+    (= um-ano (pessoa-id uma-pessoa))
+    (cond
+      [(< um-ano (pessoa-id uma-pessoa)) (valor-na-AB um-ano (pessoa-mãe uma-pessoa))]
+      [(> um-ano (pessoa-id uma-pessoa)) (valor-na-AB um-ano (pessoa-pai uma-pessoa))]))))
+
+;; lista-id-AB: Pessoa -> ListaDeStrings
+;; Retorna uma lista com todos os ids de uma estrutura Pessoa
+(define (lista-id-AB uma-pessoa)
+  (cond
+    [(empty? uma-pessoa) empty]
+    [else (append (cons (pessoa-id uma-pessoa) empty)
+                  (lista-id-AB (pessoa-mãe uma-pessoa))
+                  (lista-id-AB (pessoa-pai uma-pessoa)))]))
+
+(check-expect (lista-id-AB Chaos) (list "Chaos"))
+(check-expect (lista-id-AB Hermes) (list "Hermes" "Maia" "Zeus" "Cronus" "Rhea"))
+
