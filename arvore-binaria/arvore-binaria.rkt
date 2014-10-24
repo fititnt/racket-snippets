@@ -6,8 +6,32 @@
 ;; -----------------------------------------------------------------------------
 ;; Definições e constantes antes dos metodos
 
-;; O tipo ListaDeNumeros é uma lista aonde todos os valores são números
-;; O tipo ListaDeStrings é uma lista aonde todos os valores são strings
+;; O tipo ListaDeNumeros é uma lista aonde todos os valores são números. Se
+;   vazia, seu único valor será empty
+;; O tipo ListaDeStrings é uma lista aonde todos os valores são strings. Se
+;   vazia, seu único valor será empty
+
+(define-struct nó (id info esq dir))
+; Uma AB (árvore binária) é:
+; 1. empty
+; 2. (make-nó id i e d), onde
+; id : Número (representa o id do nó)
+; i : Símbolo (representa a informação armazenada no nó)
+; e : AB (representa a subárvore esquerda do nó)
+; d : AB (representa a subárvore direita do nó)
+; Uma ABP (árvore binária de pesquisa) é:
+; 1. empty
+; 2. (make-nó id info esq dir) se:
+; id : Número (representa o id do nó)
+; i : Símbolo (representa a informação armazenada no nó)
+; esq : ABP (subárvore da esquerda)
+; dir : ABP (subárvore da direita)
+; Todos os ’id’s dos nós em esq são menores que ’id’ do nó atual
+; Todos od ’id’s dos nós em dir são maiores que ’id’ do nó atual
+
+;; Definido duas constantes, nós-a e nós-vazio, para testes logo adiante
+(define nós-a (make-nó 2 'b (make-nó 1 'a empty empty) (make-nó 3 'c empty empty)))
+(define nós-vazio empty)
 
 (define-struct pessoa (id nascimento mãe pai))
 ;; Um elemento pessoa de Pessoa é uma estrutura
@@ -82,16 +106,23 @@
 ;; na respectiva data
 (define (idade-media uma-pessoa um-ano) "@todo terminar")
 
-;; valor-na-AB Pessoa String -> Booleano
-;; Para uma Pessoa, procura se um nome é dela mesmo ou de seus genitores
-(define (valor-na-AB uma-pessoa um-ano)
-  (and
-   (not (empty? uma-pessoa))
-   (or
-    (= um-ano (pessoa-id uma-pessoa))
-    (cond
-      [(< um-ano (pessoa-id uma-pessoa)) (valor-na-AB um-ano (pessoa-mãe uma-pessoa))]
-      [(> um-ano (pessoa-id uma-pessoa)) (valor-na-AB um-ano (pessoa-pai uma-pessoa))]))))
+; valor-na-AB? : AB Número -> Boolean
+; Dada uma arvore binária, determina se um dado valor numérico está presente
+; e retorna booleano
+(define (valor-na-AB? um-no valor)
+  (cond
+    [(empty? um-no) false]
+    [ else (or 
+            (= (nó-id um-no) valor) 
+            (valor-na-AB? (nó-esq um-no) valor) 
+            (valor-na-AB? (nó-dir um-no) valor)) 
+           ]
+    ))
+; Testes
+(check-expect (valor-na-AB? nós-a 1) true)
+(check-expect (valor-na-AB? nós-a 2) true)
+(check-expect (valor-na-AB? nós-a 3) true)
+(check-expect (valor-na-AB? nós-vazio 1) false)
 
 ;; lista-id-AB: Pessoa -> ListaDeStrings
 ;; Retorna uma lista com todos os ids de uma estrutura Pessoa
